@@ -1,11 +1,13 @@
 
 {
-  "homepage": "https://ankitasahu2911.github.io/react_project",
+  "homepage": "https://ankitasahu2911.github.io/TextUtils_React",
   "name": "react_project",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+   "deploy": "gh-pages -d build",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
