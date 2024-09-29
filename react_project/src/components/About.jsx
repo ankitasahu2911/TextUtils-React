@@ -1,38 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function About() {
-  const [myStyle, setmyStyle] = useState({
-    backgroundColor: "white",
-    color: "black",
-    border:'1px solid white'
-  });
 
-const[btntext, setBtnText]=useState("Enable Dark Mode")
+export default function About(props) {
+  // const [myStyle, setmyStyle] = useState({
+  //   backgroundColor: "white",
+  //   color: "black",
+  //   border: "1px solid white",
+  // });
 
- const toggleStyle=()=>{
-    if(myStyle.color==='black'){
-        setmyStyle({
-            color:'white',
-            backgroundColor:'grey',
-            border:'1px solid white'
-        })
-        setBtnText('Enable Light Mode');
-    }
-    else{
-        setmyStyle({
-            color:'black',
-            backgroundColor:'white'
-        })
-        setBtnText("Enable Dark Mode");
-    }
-}
+  let myStyle={
+    color:props.mode==="dark"?"white":"black",
+    backgroundColor:props.mode==="dark"?"rgb(36 74 104)":"white",
+    
+  }
+
+  // const [btntext, setBtnText] = useState("Enable Dark Mode");
+
+  // const toggleStyle = () => {
+  //   if (myStyle.color === "black") {
+  //     setmyStyle({
+  //       color: "white",
+  //       backgroundColor: "grey",
+  //       border: "1px solid white",
+  //     });
+  //     setBtnText("Enable Light Mode");
+  //   } else {
+  //     setmyStyle({
+  //       color: "black",
+  //       backgroundColor: "white",
+  //     });
+  //     setBtnText("Enable Dark Mode");
+  //   }
+  // };
   return (
     <div>
       <div className="container" style={myStyle}>
-        <h1 >About Us</h1>
-        <div className="accordion" id="accordionExample">
+        <h1 className="my-3" style={{ color:props.mode==="dark"?"white":"black"}}>About Us</h1>
+        <div className="accordion" id="accordianExample">
           <div className="accordion-item">
-            <h2 className="accordion-header">
+            <h2 className="accordion-header" id="headingOne">
               <button
                 className="accordion-button"
                 type="button"
@@ -42,13 +48,13 @@ const[btntext, setBtnText]=useState("Enable Dark Mode")
                 aria-expanded="true"
                 aria-controls="collapseOne"
               >
-                Accordion Item #1
+                <strong>Analyze your text</strong>
               </button>
             </h2>
             <div
               id="collapseOne"
-              className="accordion-collapse collapse show"
-              data-bs-parent="#accordionExample"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingOne"
             >
               <div className="accordion-body" style={myStyle}>
                 <strong>This is the first item's accordion body.</strong> It is
@@ -74,14 +80,10 @@ const[btntext, setBtnText]=useState("Enable Dark Mode")
                 aria-expanded="false"
                 aria-controls="collapseTwo"
               >
-                Accordion Item #2
+                <strong>Free to use</strong>
               </button>
             </h2>
-            <div
-              id="collapseTwo"
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionExample"
-            >
+            <div id="collapseTwo" className="accordion-collapse collapse">
               <div className="accordion-body" style={myStyle}>
                 <strong>This is the second item's accordion body.</strong> It is
                 hidden by default, until the collapse plugin adds the
@@ -96,7 +98,7 @@ const[btntext, setBtnText]=useState("Enable Dark Mode")
             </div>
           </div>
           <div className="accordion-item">
-            <h2 className="accordion-header">
+            <h2 className="accordion-header" id="headingThree">
               <button
                 className="accordion-button collapsed"
                 style={myStyle}
@@ -106,13 +108,13 @@ const[btntext, setBtnText]=useState("Enable Dark Mode")
                 aria-expanded="false"
                 aria-controls="collapseThree"
               >
-                Accordion Item #3
+                <strong>Browser compatible</strong>
               </button>
             </h2>
             <div
               id="collapseThree"
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionExample"
+              className="accordion-collapse collapse "
+              aria-labelledby="headingThree"
             >
               <div className="accordion-body" style={myStyle}>
                 <strong>This is the third item's accordion body.</strong> It is
@@ -128,11 +130,6 @@ const[btntext, setBtnText]=useState("Enable Dark Mode")
             </div>
           </div>
         </div>
-      </div>
-      <div className="container my-3">
-        <button onClick={toggleStyle} type="button" className="btn btn-primary">
-          {btntext}
-        </button>
       </div>
     </div>
   );

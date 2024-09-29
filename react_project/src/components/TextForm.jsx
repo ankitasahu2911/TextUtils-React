@@ -44,6 +44,7 @@ const handleCopy=()=>{
   var text=document.getElementById("mybox");
   text.select();
   navigator.clipboard.writeText(text.value);
+  document.getSelection().removeAllRanges();
   props.showAlert("Copied to clipboard" , "success");
 }
 
@@ -61,27 +62,28 @@ const handleExtraSpaces=()=>{
     // setText("NewText")   wrong way---------------
   return (
     <>
-    <div className='container' style={{color:props.mode==='dark'?'white':'black'}}>
-        <h1>{props.heading} </h1>
+    <div className='container' style={{color:props.mode==='dark'?'white':'black'}} >
+        <h1 className='mb-2'>{props.heading} </h1>
 <div className="mb-3">
-  <textarea className="form-control" value={Text} onChange={handleOnChange} style={{backgroundColor:props.mode==='dark'?' grey':'white', color:props.mode==='dark'?'white':'black', caretColor:props.mode==='dark'?'black':'black'}}  id="mybox" rows="8"></textarea>
+  <textarea className="form-control" value={Text} onChange={handleOnChange} style={{backgroundColor:props.mode==='dark'?' #13466e':'white', color:props.mode==='dark'?'white':'black'}}  id="mybox" rows="8"></textarea>
 </div>
 
-<button className="btn btn-primary mx-2" onClick={handleUpClick}>Convert to uppercase</button>
-<button className="btn btn-primary mx-2" onClick={handleLowClick}>Convert to lowercase</button>
-<button className="btn btn-primary mx-2" onClick={handleClearClick}>Clear</button>
-<button className="btn btn-primary ms-2" type='submit' onClick={speak}>Speak</button>
-<button className="btn btn-primary ms-2" type='submit' onClick={cancelSpeech}>Stop</button>
-<button className="btn btn-primary ms-2" type='submit' onClick={handleCopy}>Copy Text</button>
-<button className="btn btn-primary ms-2" type='submit' onClick={handleExtraSpaces}>Remove Extra Space</button>
+<button disabled={Text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleUpClick}>Convert to uppercase</button>
+<button disabled={Text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleLowClick}>Convert to lowercase</button>
+<button disabled={Text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleClearClick}>Clear</button>
+<button disabled={Text.length===0}className="btn btn-primary ms-2 my-1" type='submit' onClick={speak}>Speak</button>
+<button disabled={Text.length===0} className="btn btn-primary ms-2 my-1" type='submit' onClick={cancelSpeech}>Stop</button>
+<button disabled={Text.length===0} className="btn btn-primary ms-2 my-1" type='submit' onClick={handleCopy}>Copy Text</button>
+<button disabled={Text.length===0} className="btn btn-primary ms-2 my-1" type='submit' onClick={handleExtraSpaces}>Remove Extra Space</button>
     </div>
     <div className="container my-2" style={{color:props.mode==='dark'?'white':'black'}}>
       <h1>Your Text Summary</h1>
-      <p>{Text.split(" ").length} and {Text.length} characters</p>
-      <p>{0.008 * Text.split(" ").length } Minutes Read</p>
+      <p>{Text.split(" ").filter((element)=>{return element.length!==0}).length} and {Text.length} characters</p>
+      <p>{0.008 * Text.split(" ").filter((element)=>{return element.length!==0}).length } Minutes Read</p>
       <h2>Preview</h2>
-      <p>{Text.length>0?Text:"Enter something above to preview it here"}</p>
+      <p>{Text.length>0?Text:"Nothing to preview"}</p>
     </div>
+
     </>
     
   )
